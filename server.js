@@ -34,7 +34,7 @@ console.log('✅ CORS and middleware configured');
 const chatLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
     max: 10, // 10 requests per minute per IP
-    message: { error: 'Too many requests from this IP, please try again in a minute.' },
+    message: { error: "Whoa, we see you're spamming a bit there! Take it easy, you'll be able to message Arky again in a minute." },
     standardHeaders: true,
     legacyHeaders: false,
 });
