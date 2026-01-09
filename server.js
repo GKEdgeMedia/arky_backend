@@ -4,11 +4,12 @@ import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import rateLimit from 'express-rate-limit';
 
-console.log('========================================');
-console.log('🚀 BACKEND API SERVER STARTING');
-console.log('========================================');
-console.log('Node version:', process.version);
 console.log('Environment:', process.env.NODE_ENV || 'development');
+console.log('----------------------------------------');
+console.log('🔍 DEBUG: Checking Environment Variables');
+console.log('GEMINI_API_KEY present:', !!process.env.GEMINI_API_KEY ? 'YES ✅' : 'NO ❌');
+console.log('All Env Keys:', Object.keys(process.env).sort().join(', '));
+console.log('----------------------------------------');
 
 dotenv.config({ path: '.env.local' });
 console.log('✅ dotenv configured');
