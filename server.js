@@ -273,7 +273,8 @@ Rules:
 - Use only provided knowledgebase context and conversation context.
 - Do not invent pricing, certifications, guarantees, or client claims.
 - Keep replies concise and practical (2-6 short sentences).
-- When suggesting pages, use markdown links with labels (example: [Contact](/contact), [ARKY](/arky)).
+- When suggesting pages, use markdown links with labels (example: [Contact](/contact), [Request a Demo](/request-demo)).
+- The /arky page no longer exists — never link to it or tell users to visit it. ARKY is described directly on the homepage; if asked to learn more about ARKY or see it in action, point users to [Request a Demo](/request-demo) or [Contact](/contact) instead.
 - Do not output raw paths alone unless the user explicitly asks for raw URLs.
 - If information is missing, say so briefly and suggest contacting info@gkedgemedia.com.`;
 
@@ -342,8 +343,8 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post('/api/contact', contactLimiter, async (req, res) => {
-    const { 
-        firstName, lastName, email, userType, message, // From Contact.tsx
+    const {
+        firstName, lastName, email, message, // From Contact.tsx
         name, company, industry, integrations, automation_goal // From RequestDemo.tsx
     } = req.body;
 
@@ -358,9 +359,9 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         // Determine which form was submitted based on the payload
         const isDemoRequest = !!industry;
         
-        const subject = isDemoRequest 
+        const subject = isDemoRequest
             ? `New Demo Request: ${contactName} from ${company || 'Unknown Company'}`
-            : `New Lead: ${contactName} - ${userType === 'team' ? 'Custom Solution' : 'ARKY AI Agent'}`;
+            : `New Lead: ${contactName}`;
 
         const htmlContent = isDemoRequest 
             ? `
@@ -376,7 +377,6 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
                 <h2>New Contact Form Submission</h2>
                 <p><strong>Name:</strong> ${contactName}</p>
                 <p><strong>Email:</strong> ${contactEmail}</p>
-                <p><strong>Interest:</strong> ${userType === 'team' ? 'Custom Solution' : 'ARKY AI Agent'}</p>
                 <br/>
                 <p><strong>Message:</strong></p>
                 <p>${message || 'No additional message provided.'}</p>
